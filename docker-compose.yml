@@ -1,0 +1,22 @@
+services:
+  app:
+    image: golang:1.22
+    command:
+      - go
+      - run
+      - main.go
+    volumes:
+      - ./:/app
+      - go-mod-cache:/go/pkg/mod
+    working_dir: /app
+    network_mode: host
+    environment:
+      PORT: "8085"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "5432"
+      DB_USER: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      DB_NAME: ${POSTGRES_DB:-root}
+
+volumes:
+  go-mod-cache:
