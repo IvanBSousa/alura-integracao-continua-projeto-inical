@@ -25,5 +25,5 @@ func HandleRequest() {
 	if port == "" {
 		port = "8080"
 	}
-	r.Run(":" + port)
+	_ = r.Run(":" + port)
 }
