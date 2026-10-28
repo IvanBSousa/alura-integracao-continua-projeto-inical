@@ -1,4 +1,9 @@
 services:
+  postgres:
+    image: "postgres"
+  
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
   app:
     image: golang:1.22
     command:
