@@ -22,9 +22,9 @@ jobs:
         go-version: '1.22'
 
     - name: Inicia banco
-      run: 
+      run: |
         docker compose up -d postgres
-        sleep 10
+        sleep 5
 
     - name: Lint
       run: docker run --rm --network host   -v "${GITHUB_WORKSPACE}:/app"   -w /app   golangci/golangci-lint   golangci-lint run controllers/ database/ models/ routes/
