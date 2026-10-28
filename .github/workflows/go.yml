@@ -24,14 +24,17 @@ jobs:
     - name: Inicia banco
       run: |
         docker compose up -d postgres
-        sleep 5
+        until docker compose exec -T postgres pg_isready -U postgres -d root; do
+          echo "Aguardando PostgreSQL..."
+          sleep 2
+        done
 
     - name: Lint
       run: docker run --rm --network host   -v "${GITHUB_WORKSPACE}:/app"   -w /app   golangci/golangci-lint   golangci-lint run controllers/ database/ models/ routes/
 
     - name: Test
       env:
-        DB_HOST: localhost
+        DB_HOST: 127.0.0.1
         DB_PORT: "5432"
         DB_USER: postgres
         DB_PASSWORD: postgres
