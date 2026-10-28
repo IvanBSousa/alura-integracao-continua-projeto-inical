@@ -22,7 +22,7 @@ jobs:
         go-version: '1.22'
 
     - name: Inicia bando
-      run: docker compose up -d postgres-db
+      run: docker compose up -d postgres
 
     - name: Lint
       run: docker run --rm --network host   -v "$(CURDIR):/app"   -w /app   golangci/golangci-lint   golangci-lint run controllers/ database/ models/ routes/
